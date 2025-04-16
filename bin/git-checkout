@@ -1,0 +1,3 @@
+git branch -D $1 || true
+git checkout --force --track origin/$1
+git clean -df

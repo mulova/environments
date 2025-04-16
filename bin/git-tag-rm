@@ -1,0 +1,14 @@
+if [ ! -z "$1" ]; then
+	tags_to_delete=$(git tag | grep "$1")
+
+	if [ -n "$tags_to_delete" ]; then
+		echo "Deleting local tags..."
+		echo "$tags_to_delete" | xargs -n 1 git tag -d
+  		echo "Deleting remote tags..."
+		echo "$tags_to_delete" | xargs -n 1 -I {} git push origin :refs/tags/{}
+	else
+		echo "No tags found matching the pattern."
+	fi
+else
+	echo "regex expression is missing"
+fi
